@@ -19,13 +19,71 @@ body {
     position: relative;
 }
 
+/* Titlebar */
+.titlebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 32px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    z-index: 10000;
+    -webkit-app-region: drag;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.titlebar-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+}
+
+.titlebar-controls {
+    display: flex;
+    gap: 2px;
+    -webkit-app-region: no-drag;
+}
+
+.titlebar-btn {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    color: #666;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.titlebar-btn:hover {
+    background: rgba(0, 0, 0, 0.1);
+    color: #333;
+}
+
+.titlebar-btn:active {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+#close-window-btn:hover {
+    background: #e81123;
+    color: white;
+}
+
 /* Screen management */
 .screen {
     position: absolute;
-    top: 0;
+    top: 32px; /* Account for titlebar */
     left: 0;
     width: 100%;
-    height: 100%;
+    height: calc(100% - 32px);
     display: none;
     align-items: center;
     justify-content: center;
@@ -194,9 +252,9 @@ body {
     border-radius: 20px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(10px);
-    max-width: 500px;
+    max-width: 800px;
     width: 100%;
-    max-height: 80vh;
+    max-height: calc(80vh - 32px);
     overflow-y: auto;
 }
 
@@ -215,47 +273,214 @@ body {
     color: #333;
 }
 
-.preference-group {
-    margin-bottom: 30px;
+.preferences-actions {
+    display: flex;
+    gap: 10px;
 }
 
-.preference-group h3 {
-    font-size: 18px;
-    font-weight: 600;
-    color: #333;
-    margin-bottom: 15px;
+.preferences-content {
+    display: flex;
+    gap: 20px;
+    min-height: 0;
 }
 
-.preference-item {
-    margin-bottom: 15px;
+/* Navigation */
+.navigation {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 150px;
+    flex-shrink: 0;
+}
+
+.navigation a {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-}
-
-.preference-item label {
-    font-size: 14px;
+    padding: 10px;
+    text-decoration: none;
     color: #666;
-    flex: 1;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    white-space: nowrap;
 }
 
-.preference-item input[type="number"] {
-    width: 80px;
+.navigation a:hover {
+    background: rgba(102, 126, 234, 0.1);
+    color: #667eea;
+}
+
+.navigation a.active {
+    background: rgba(102, 126, 234, 0.2);
+    color: #667eea;
+}
+
+.navigation img {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+/* Preference sections */
+.settings-section,
+.schedule-section,
+.theme-section,
+.about-section {
+    flex: 1;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    display: none;
+    min-width: 0;
+    overflow-y: auto;
+}
+
+.settings-section.active,
+.schedule-section.active,
+.theme-section.active,
+.about-section.active {
+    display: block;
+}
+
+.settings-section > div,
+.schedule-section > div,
+.theme-section > div,
+.about-section > div {
+    margin-bottom: 15px;
+}
+
+.settings-section span,
+.schedule-section span,
+.theme-section span,
+.about-section span {
+    font-weight: 600;
+    color: #333;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.settings-section p,
+.schedule-section p,
+.theme-section p,
+.about-section p {
+    color: #666;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 15px;
+}
+
+/* Form elements */
+input[type="checkbox"],
+input[type="radio"] {
+    margin-right: 8px;
+}
+
+input[type="range"] {
+    width: 100%;
+    margin: 10px 0;
+    height: 6px;
+    border-radius: 3px;
+    background: #ddd;
+    outline: none;
+    -webkit-appearance: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #667eea;
+    cursor: pointer;
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #667eea;
+    cursor: pointer;
+    border: none;
+}
+
+select {
     padding: 8px;
     border: 1px solid #ddd;
     border-radius: 6px;
     font-size: 14px;
+    width: 100%;
 }
 
-.preference-item input[type="checkbox"] {
-    width: 18px;
-    height: 18px;
+output {
+    font-weight: 600;
+    color: #667eea;
+    display: inline-block;
     margin-left: 10px;
+    min-width: 60px;
 }
 
-.preference-item span {
-    font-size: 14px;
-    color: #666;
+/* Range slider container */
+.range-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.range-container label {
+    min-width: 80px;
+    font-weight: 500;
+}
+
+.range-container input[type="range"] {
+    flex: 1;
+    margin: 0;
+}
+
+.range-container output {
+    min-width: 80px;
+    text-align: right;
+}
+
+/* Theme options */
+.appearance {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.appearance label {
+    margin-left: 8px;
+    cursor: pointer;
+}
+
+.sounds {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.sounds img {
+    width: 16px;
+    height: 16px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+/* About section */
+.about-section img {
+    width: 60px;
+    height: 60px;
+    margin-right: 15px;
+}
+
+.about-section a {
+    color: #667eea;
+    text-decoration: none;
+}
+
+.about-section a:hover {
+    text-decoration: underline;
 }
 
 /* Buttons */
@@ -306,6 +531,24 @@ body {
 }
 
 /* Responsive design */
+@media (max-width: 768px) {
+    .preferences-content {
+        flex-direction: column;
+    }
+    
+    .navigation {
+        flex-direction: row;
+        overflow-x: auto;
+        min-width: auto;
+        padding-bottom: 10px;
+    }
+    
+    .navigation a {
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+}
+
 @media (max-width: 480px) {
     .welcome-container,
     .main-container,

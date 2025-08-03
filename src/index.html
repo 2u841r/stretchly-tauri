@@ -8,6 +8,16 @@
 </head>
 <body>
     <div id="app">
+        <!-- Titlebar -->
+        <div class="titlebar">
+            <div class="titlebar-title">Stretchly</div>
+            <div class="titlebar-controls">
+                <button id="minimize-window-btn" class="titlebar-btn" title="Minimize">─</button>
+                <button id="maximize-window-btn" class="titlebar-btn" title="Maximize">□</button>
+                <button id="close-window-btn" class="titlebar-btn" title="Close">×</button>
+            </div>
+        </div>
+
         <div id="welcome-screen" class="screen active">
             <div class="welcome-container">
                 <div class="logo">
@@ -66,65 +76,277 @@
             <div class="preferences-container">
                 <div class="preferences-header">
                     <h2>Preferences</h2>
-                    <button id="close-preferences-btn" class="btn btn-secondary">Close</button>
+                    <div class="preferences-actions">
+                        <button id="save-preferences-btn" class="btn btn-primary">Save</button>
+                        <button id="close-preferences-btn" class="btn btn-secondary">Close</button>
+                    </div>
                 </div>
                 <div class="preferences-content">
-                    <div class="preference-group">
-                        <h3>Break Settings</h3>
-                        <div class="preference-item">
-                            <label for="microbreak-duration">Microbreak Duration (seconds):</label>
-                            <input type="number" id="microbreak-duration" value="20" min="10" max="300">
+                    <nav class="navigation">
+                        <a href="#" class="active" data-section="settings">
+                            <div>
+                                <img src="images/preferences/settings.svg">
+                                <span>Settings</span>
+                            </div>
+                        </a>
+                        <a href="#" data-section="schedule">
+                            <div>
+                                <img src="images/preferences/schedule.svg">
+                                <span>Schedule</span>
+                            </div>
+                        </a>
+                        <a href="#" data-section="theme">
+                            <div>
+                                <img src="images/preferences/theme.svg">
+                                <span>Theme</span>
+                            </div>
+                        </a>
+                        <a href="#" data-section="about">
+                            <div>
+                                <img src="images/preferences/about.svg">
+                                <span>About</span>
+                            </div>
+                        </a>
+                    </nav>
+
+                    <div class="settings-section active">
+                        <div>
+                            <input type="checkbox" value="openAtLogin" id="openAtLogin">
+                            <label for="openAtLogin">Open at login</label>
                         </div>
-                        <div class="preference-item">
-                            <label for="break-duration">Break Duration (minutes):</label>
-                            <input type="number" id="break-duration" value="5" min="1" max="60">
+                        <div>
+                            <span>Show breaks in:</span>
                         </div>
-                        <div class="preference-item">
-                            <label for="microbreak-interval">Microbreak Interval (minutes):</label>
-                            <input type="number" id="microbreak-interval" value="20" min="1" max="120">
+                        <div>
+                            <input type="radio" value="false" name="fullscreen" id="window">
+                            <label for="window">Window</label>
+                            <input type="radio" value="true" name="fullscreen" id="fullscreen">
+                            <label for="fullscreen">Fullscreen</label>
                         </div>
-                        <div class="preference-item">
-                            <label for="break-interval">Break Interval (minutes):</label>
-                            <input type="number" id="break-interval" value="34" min="5" max="240">
+                        <div>
+                            <input type="checkbox" value="ideas" id="showIdeas">
+                            <label for="showIdeas">Show ideas</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" value="allScreens" id="allScreens">
+                            <label for="allScreens">Show on all screens</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" value="naturalBreaks" id="monitorIdleTime">
+                            <label for="monitorIdleTime">Monitor idle time</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" class="negative" value="monitorDnd" id="monitorDnd">
+                            <label for="monitorDnd">Monitor Do Not Disturb</label>
+                        </div>
+                        <div>
+                            <hr />
+                        </div>
+                        <div>
+                            <label for="language">Language:</label>
+                            <div class="has-select">
+                                <select name="language" id="language">
+                                    <option value="en">English</option>
+                                    <option value="es">Español</option>
+                                    <option value="fr">Français</option>
+                                    <option value="de">Deutsch</option>
+                                    <option value="it">Italiano</option>
+                                    <option value="pt">Português</option>
+                                    <option value="ru">Русский</option>
+                                    <option value="ja">日本語</option>
+                                    <option value="ko">한국어</option>
+                                    <option value="zh-CN">简体中文</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <hr />
+                        </div>
+                        <div>
+                            <button type="button" id="restoreDefaults">Restore defaults</button>
                         </div>
                     </div>
-                    <div class="preference-group">
-                        <h3>Notifications</h3>
-                        <div class="preference-item">
-                            <label>
-                                <input type="checkbox" id="enable-notifications" checked>
-                                Enable notifications
-                            </label>
+
+                    <div class="schedule-section hidden">
+                        <div>
+                            <span>Mini Breaks</span>
                         </div>
-                        <div class="preference-item">
-                            <label>
-                                <input type="checkbox" id="enable-sounds" checked>
-                                Enable sounds
-                            </label>
+                        <div>
+                            <p>Short breaks to remind you to take a moment to rest your eyes and stretch.</p>
+                        </div>
+                        <div>
+                            <input type="checkbox" class="enabletype" value="microbreak" id="enableMiniBreaks">
+                            <label for="enableMiniBreaks">Enable mini breaks</label>
+                        </div>
+                        <div class="range-container">
+                            <label for="miniBreakFor">Break for:</label>
+                            <input type="range" min="10" max="600" step="10" list="tickmarksMiniBreakFor" name="microbreakDuration" data-divisor="1000" id="miniBreakFor">
+                            <output data-unit="seconds"></output>
+                        </div>
+                        <div class="range-container">
+                            <label for="miniBreakEvery">Every:</label>
+                            <input type="range" min="5" max="65" step="5" list="tickmarksMiniBreakEvery" name="microbreakInterval" data-divisor="60000" id="miniBreakEvery">
+                            <output data-unit="minutes"></output>
+                        </div>
+                        <div>
+                            <input type="checkbox" value="microbreakNotification" id="showNotificationBeforeMiniBreak">
+                            <label for="showNotificationBeforeMiniBreak">Show notification before mini break</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" value="microbreakPostpone" id="enablePostponeMini">
+                            <label for="enablePostponeMini">Enable postpone for mini breaks</label>
+                        </div>
+                        <div>
+                            <hr />
+                        </div>
+                        <div>
+                            <span>Long Breaks</span>
+                        </div>
+                        <div>
+                            <p>Longer breaks to encourage you to step away from your computer and take a proper rest.</p>
+                        </div>
+                        <div>
+                            <input type="checkbox" class="enabletype" value="break" id="enableLongBreaks">
+                            <label for="enableLongBreaks">Enable long breaks</label>
+                        </div>
+                        <div class="range-container">
+                            <label for="longBreakFor">Break for:</label>
+                            <input type="range" min="1" max="60" step="1" list="tickmarksLongBreakFor" name="breakDuration" data-divisor="60000" id="longBreakFor">
+                            <output data-unit="minutes"></output>
+                        </div>
+                        <div class="range-container">
+                            <label for="longBreakEvery">Every:</label>
+                            <input type="range" min="1" max="30" step="1" list="tickmarksLongBreakEvery" name="breakInterval" data-divisor="1" id="longBreakEvery">
+                            <output data-unit="minutes"></output>
+                        </div>
+                        <div>
+                            <input type="checkbox" value="breakNotification" id="showNotificationBeforeLongBreak">
+                            <label for="showNotificationBeforeLongBreak">Show notification before long break</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" value="breakPostpone" id="enablePostponeLong">
+                            <label for="enablePostponeLong">Enable postpone for long breaks</label>
+                        </div>
+                        <div>
+                            <hr />
+                        </div>
+                        <div>
+                            <span>Strict Mode</span>
+                        </div>
+                        <div>
+                            <p>In strict mode, breaks cannot be skipped or postponed.</p>
+                        </div>
+                        <div>
+                            <input type="checkbox" value="microbreakStrictMode" id="enableStrictMini">
+                            <label for="enableStrictMini">Enable strict mode for mini breaks</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" value="breakStrictMode" id="enableStrictLong">
+                            <label for="enableStrictLong">Enable strict mode for long breaks</label>
                         </div>
                     </div>
-                    <div class="preference-group">
-                        <h3>Behavior</h3>
-                        <div class="preference-item">
-                            <label>
-                                <input type="checkbox" id="start-on-boot">
-                                Start on boot
-                            </label>
+
+                    <div class="theme-section hidden">
+                        <div>
+                            <span>Appearance</span>
                         </div>
-                        <div class="preference-item">
-                            <label>
-                                <input type="checkbox" id="pause-on-suspend">
-                                Pause on suspend
-                            </label>
+                        <div class="appearance">
+                            <input type="radio" value="#478484" name="mainColor" id="greenClouds">
+                            <label for="greenClouds">Green Clouds</label>
+                        </div>
+                        <div class="appearance">
+                            <input type="radio" value="#633738" name="mainColor" id="autumnBeBlessed">
+                            <label for="autumnBeBlessed">Autumn Be Blessed</label>
+                        </div>
+                        <div class="appearance">
+                            <input type="radio" value="#ffffff" name="mainColor" id="snowWhite">
+                            <label for="snowWhite">Snow White</label>
+                        </div>
+                        <div class="appearance">
+                            <input type="radio" value="#1D1F21" name="mainColor" id="graphiteCrystal">
+                            <label for="graphiteCrystal">Graphite Crystal</label>
+                        </div>
+                        <div class="appearance">
+                            <input type="radio" value="#A49898" name="mainColor" id="coffeeKisses">
+                            <label for="coffeeKisses">Coffee Kisses</label>
+                        </div>
+                        <div class="appearance">
+                            <input type="radio" value="#567890" name="mainColor" id="morningSwim">
+                            <label for="morningSwim">Morning Swim</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" value="transparentMode" id="enableTransparency">
+                            <label for="enableTransparency">Enable transparency</label>
+                        </div>
+                        <div>
+                            <hr>
+                        </div>
+                        <div>
+                            <span>Sounds</span>
+                        </div>
+                        <div>
+                            <input type="checkbox" class="negative" value="silentNotifications" id="enableSounds">
+                            <label for="enableSounds">Enable sounds</label>
+                        </div>
+                        <div class="sounds">
+                            <input type="radio" value="crystal-glass" name="audio" id="crystalGlass">
+                            <label for="crystalGlass">Crystal Glass</label>
+                            <img src="images/preferences/speaker.png" data-has-dark-version alt="Play sound">
+                        </div>
+                        <div class="sounds">
+                            <input type="radio" value="wind-chime" name="audio" id="windChime">
+                            <label for="windChime">Wind Chime</label>
+                            <img src="images/preferences/speaker.png" data-has-dark-version alt="Play sound">
+                        </div>
+                        <div class="sounds">
+                            <input type="radio" value="tic-toc" name="audio" id="ticToc">
+                            <label for="ticToc">Tic Toc</label>
+                            <img src="images/preferences/speaker.png" data-has-dark-version alt="Play sound">
+                        </div>
+                        <div class="sounds">
+                            <input type="radio" value="reverie" name="audio" id="reverie">
+                            <label for="reverie">Reverie</label>
+                            <img src="images/preferences/speaker.png" data-has-dark-version alt="Play sound">
                         </div>
                     </div>
-                    <div class="preference-group">
-                        <h3>About</h3>
-                        <div class="preference-item">
-                            <span>Version: <span id="app-version">0.1.0</span></span>
+
+                    <div class="about-section hidden">
+                        <div>
+                            <div>
+                                <img src="images/stretchly.svg" data-has-dark-version alt="Stretchy logo">
+                                <span>Stretchly</span>
+                            </div>
+                            <span>Your mindful break reminder</span>
                         </div>
-                        <div class="preference-item">
-                            <span id="system-info">Loading system info...</span>
+                        <div>
+                            <span>Version: </span>
+                            <span class="version">0.1.0</span>
+                        </div>
+                        <div>
+                            <input type="checkbox" value="checkNewVersion" id="checkNewVersion">
+                            <label for="checkNewVersion">Check for new version</label>
+                            <br />(<span>Latest version:</span>
+                            <span class="latestVersion">0.1.0</span>)
+                        </div>
+                        <div>
+                            <img src="images/preferences/home.svg" data-has-dark-version alt="Home">
+                            <div>
+                                <span>Learn more at </span>
+                                <a href="https://hovancik.net/stretchly/">our website</a>
+                                <span>.</span>
+                            </div>
+                        </div>
+                        <div>
+                            <span>Developed by </span>
+                            <a href="https://hovancik.net/">Jan Hovancik</a>
+                        </div>
+                        <div>
+                            <span>Designed by </span>
+                            (<a href="http://www.colinshanley.com/">www.colinshanley.com</a>)
+                        </div>
+                        <div>
+                            <span>Tauri implementation by </span>
+                            <a href="#">Zubair Ibn Zamir</a>
                         </div>
                     </div>
                 </div>
