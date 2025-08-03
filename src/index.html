@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stretchly - Break Reminder</title>
+    <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+    <div id="app">
+        <div id="welcome-screen" class="screen active">
+            <div class="welcome-container">
+                <div class="logo">
+                    <img src="images/stretchly.svg" alt="Stretchly Logo" class="logo-image">
+                </div>
+                <h1 class="welcome-title">Welcome to Stretchly</h1>
+                <p class="welcome-subtitle">Your mindful break reminder</p>
+                <div class="welcome-buttons">
+                    <button id="start-btn" class="btn btn-primary">Get Started</button>
+                    <button id="preferences-btn" class="btn btn-secondary">Preferences</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="main-screen" class="screen">
+            <div class="main-container">
+                <div class="window-controls">
+                    <button id="minimize-btn" class="window-btn" title="Minimize to tray">−</button>
+                </div>
+                <div class="status-bar">
+                    <div class="status-text" id="status-text">Ready to start your breaks</div>
+                    <div class="timer" id="timer">--:--</div>
+                </div>
+                <div class="break-info">
+                    <div class="break-type" id="break-type">Microbreak</div>
+                    <div class="break-description" id="break-description">Time for a quick stretch!</div>
+                </div>
+                <div class="break-actions">
+                    <button id="start-break-btn" class="btn btn-primary">Start Break</button>
+                    <button id="skip-btn" class="btn btn-secondary">Skip</button>
+                    <button id="postpone-btn" class="btn btn-secondary">Postpone</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="break-screen" class="screen">
+            <div class="break-container">
+                <div class="break-header">
+                    <div class="break-title" id="break-title">Microbreak</div>
+                    <div class="break-timer" id="break-timer">00:20</div>
+                </div>
+                <div class="break-content">
+                    <div class="break-idea" id="break-idea">
+                        <h3>Quick Stretch</h3>
+                        <p>Stand up and stretch your arms above your head. Take a deep breath and hold for 5 seconds.</p>
+                    </div>
+                </div>
+                <div class="break-actions">
+                    <button id="finish-break-btn" class="btn btn-primary">Finish</button>
+                    <button id="skip-break-btn" class="btn btn-secondary">Skip</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="preferences-screen" class="screen">
+            <div class="preferences-container">
+                <div class="preferences-header">
+                    <h2>Preferences</h2>
+                    <button id="close-preferences-btn" class="btn btn-secondary">Close</button>
+                </div>
+                <div class="preferences-content">
+                    <div class="preference-group">
+                        <h3>Break Settings</h3>
+                        <div class="preference-item">
+                            <label for="microbreak-duration">Microbreak Duration (seconds):</label>
+                            <input type="number" id="microbreak-duration" value="20" min="10" max="300">
+                        </div>
+                        <div class="preference-item">
+                            <label for="break-duration">Break Duration (minutes):</label>
+                            <input type="number" id="break-duration" value="5" min="1" max="60">
+                        </div>
+                        <div class="preference-item">
+                            <label for="microbreak-interval">Microbreak Interval (minutes):</label>
+                            <input type="number" id="microbreak-interval" value="20" min="1" max="120">
+                        </div>
+                        <div class="preference-item">
+                            <label for="break-interval">Break Interval (minutes):</label>
+                            <input type="number" id="break-interval" value="34" min="5" max="240">
+                        </div>
+                    </div>
+                    <div class="preference-group">
+                        <h3>Notifications</h3>
+                        <div class="preference-item">
+                            <label>
+                                <input type="checkbox" id="enable-notifications" checked>
+                                Enable notifications
+                            </label>
+                        </div>
+                        <div class="preference-item">
+                            <label>
+                                <input type="checkbox" id="enable-sounds" checked>
+                                Enable sounds
+                            </label>
+                        </div>
+                    </div>
+                    <div class="preference-group">
+                        <h3>Behavior</h3>
+                        <div class="preference-item">
+                            <label>
+                                <input type="checkbox" id="start-on-boot">
+                                Start on boot
+                            </label>
+                        </div>
+                        <div class="preference-item">
+                            <label>
+                                <input type="checkbox" id="pause-on-suspend">
+                                Pause on suspend
+                            </label>
+                        </div>
+                    </div>
+                    <div class="preference-group">
+                        <h3>About</h3>
+                        <div class="preference-item">
+                            <span>Version: <span id="app-version">0.1.0</span></span>
+                        </div>
+                        <div class="preference-item">
+                            <span id="system-info">Loading system info...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html> 
