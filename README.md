@@ -3,6 +3,7 @@
 A modern, cross-platform break reminder application built with Tauri. Stretchly helps you maintain healthy work habits by reminding you to take regular breaks and microbreaks.
 
 # Forked from [hovancik/stretchly](https://github.com/hovancik/stretchly/)
+# 128 MB (Electron) vs 55+- MB (Tauri)
 
 ## Features
 
@@ -137,3 +138,6 @@ npm run tauri build -- --target x86_64-unknown-linux-gnu
 ## License
 
 This project is open source and available under the MIT License.
+
+
+![](https://repostats.deno.dev/2u841r/stretchly-tauri)
