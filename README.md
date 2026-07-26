@@ -140,4 +140,4 @@ npm run tauri build -- --target x86_64-unknown-linux-gnu
 This project is open source and available under the MIT License.
 
 
-![](https://repostats.deno.dev/2u841r/stretchly-tauri)
+![](https://repostats.zizdjbd.workers.dev/2u841r/stretchly-tauri)
